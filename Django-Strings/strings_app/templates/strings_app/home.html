@@ -1,0 +1,56 @@
+{% extends "strings_app/base.html" %}
+
+{% block title %}Home — Python Strings Demo{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>Python Strings &amp; String Methods</h1>
+  <p class="subtitle">A layered Django project demonstrating how strings work in Python</p>
+</section>
+
+<section class="section">
+  <h2>🏗️ Project Architecture (4 Layers)</h2>
+  <div class="layer-grid">
+    {% for layer in layers %}
+    <div class="layer-card" style="border-top: 4px solid {{ layer.color }}">
+      <h3>{{ layer.name }}</h3>
+      <code class="path">{{ layer.path }}</code>
+      <p>{{ layer.role }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="flow-note">Request flow: <strong>View → Service → Repository → Domain</strong></p>
+</section>
+
+<section class="section">
+  <h2>📂 Explore by Category</h2>
+  <div class="category-grid">
+    {% for cat in categories %}
+    <a href="{% url 'category' cat.value %}" class="category-card">
+      <h3>{{ cat.label }}</h3>
+      <p>{{ cat.description }}</p>
+      <span class="badge">{{ cat.value }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <h2>🚀 Quick Start</h2>
+  <div class="quick-start">
+    <pre><code>cd "Python Strings"
+source venv/bin/activate
+python manage.py runserver</code></pre>
+    <p>Then open <a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a></p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>📝 Sample Strings</h2>
+  <ul class="sample-list">
+    {% for s in sample_strings %}
+    <li><code>{{ s }}</code></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

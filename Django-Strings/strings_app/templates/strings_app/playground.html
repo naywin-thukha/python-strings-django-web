@@ -1,0 +1,39 @@
+{% extends "strings_app/base.html" %}
+
+{% block title %}Playground — Python Strings Demo{% endblock %}
+
+{% block content %}
+<section class="hero compact">
+  <h1>String Playground</h1>
+  <p class="subtitle">Run every string method at once on your input</p>
+</section>
+
+<form method="get" class="input-form">
+  <label for="text">Your string:</label>
+  <input type="text" id="text" name="text" value="{{ text }}" placeholder="Type any string...">
+  <button type="submit">Run All Methods</button>
+</form>
+
+<div class="sample-chips">
+  {% for s in sample_strings %}
+  <a href="?text={{ s|urlencode }}" class="chip">{{ s|truncatechars:30 }}</a>
+  {% endfor %}
+</div>
+
+{% for cat, results in category_results %}
+<section class="section">
+  <h2><a href="{% url 'category' cat.value %}">{{ cat.label }}</a></h2>
+  <div class="results-grid compact-grid">
+    {% for result in results %}
+    <div class="result-card mini">
+      <span class="method-name">{{ result.method_name }}</span>
+      <code class="code-inline">{{ result.code_snippet }}</code>
+      <div class="result-output">
+        <code>{{ result.output }}</code>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% endblock %}

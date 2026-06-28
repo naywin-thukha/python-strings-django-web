@@ -1,0 +1,56 @@
+{% extends "strings_app/base.html" %}
+
+{% block title %}{{ category.label }} — Python Strings Demo{% endblock %}
+
+{% block content %}
+<section class="hero compact">
+  <h1>{{ category.label }}</h1>
+  <p class="subtitle">{{ category.description }}</p>
+</section>
+
+<form method="get" class="input-form">
+  <label for="text">Enter a string to demo:</label>
+  <input type="text" id="text" name="text" value="{{ text }}" placeholder="Type any string...">
+  <button type="submit">Run Methods</button>
+</form>
+
+<div class="sample-chips">
+  {% for s in sample_strings %}
+  <a href="?text={{ s|urlencode }}" class="chip">{{ s|truncatechars:30 }}</a>
+  {% endfor %}
+</div>
+
+<section class="section">
+  <h2>Methods in this category</h2>
+  <div class="method-ref">
+    {% for m in methods %}
+    <div class="method-ref-item">
+      <strong>{{ m.name }}</strong> — {{ m.description }}
+      <code>{{ m.example_code }}</code>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <h2>Live Results for: <code>{{ text }}</code></h2>
+  <div class="results-grid">
+    {% for r in results %}
+    <div class="result-card">
+      <div class="result-header">
+        <span class="method-name">{{ r.method_name }}</span>
+        <span class="category-badge">{{ r.category.value }}</span>
+      </div>
+      <pre class="code-block">{{ r.code_snippet }}</pre>
+      <div class="result-output">
+        <span class="label">Output:</span>
+        <code>{{ r.output }}</code>
+      </div>
+      <p class="explanation">{{ r.explanation }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<p class="back-link"><a href="{% url 'home' %}">← Back to Home</a></p>
+{% endblock %}

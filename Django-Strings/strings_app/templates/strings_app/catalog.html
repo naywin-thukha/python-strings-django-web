@@ -1,0 +1,39 @@
+{% extends "strings_app/base.html" %}
+
+{% block title %}Method Catalog — Python Strings Demo{% endblock %}
+
+{% block content %}
+<section class="hero compact">
+  <h1>String Method Catalog</h1>
+  <p class="subtitle">Complete reference from the Repository Layer</p>
+</section>
+
+{% for cat in categories %}
+<section class="section">
+  <h2>{{ cat.label }}</h2>
+  <p class="subtitle">{{ cat.description }}</p>
+  <table class="catalog-table">
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Description</th>
+        <th>Example Code</th>
+        <th>Demo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for m in methods %}
+      {% if m.category == cat %}
+      <tr>
+        <td><strong>{{ m.name }}</strong></td>
+        <td>{{ m.description }}</td>
+        <td><code>{{ m.example_code }}</code></td>
+        <td><a href="{% url 'category' cat.value %}">Try it →</a></td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endfor %}
+{% endblock %}
